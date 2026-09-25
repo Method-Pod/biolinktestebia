@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dra. Ana Beatriz Barbosa</title>
+<meta name="description" content="Psiquiatra, escritora e palestrante. Cursos, podcast PodPeople, livros e contato.">
+<meta name="theme-color" content="#F4EDE2">
+<meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root {
+    --terra: #B5532A;
+    /* Terracota de superfície: mesmo tom, um pouco mais escuro, para texto creme pequeno passar 4.5:1 */
+    --terra-ui: #A94C25;
+    --terra-deep: #8F3F1D;
+    --terra-light: #E3895F;
+    --cream: #F4EDE2;
+    --cream-soft: #FBF7F1;
+    --ink: #1A1A1A;
+    --ink-3: #2B2927;
+    --muted: #6B625A;
+    --line: rgba(26, 26, 26, .1);
+    --ease-out: cubic-bezier(.23, 1, .32, 1);
+    --press-in: 80ms;
+    --press-out: 180ms;
+    --radius: 26px;
+    --display: "Lexend", system-ui, sans-serif;
+    --sans: "Poppins", system-ui, -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; background: var(--cream); }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a {
+    color: inherit; text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  a:focus-visible { outline: 2px solid var(--terra); outline-offset: 3px; }
+
+  /* Rolagem suave (Lenis): desliga o smooth nativo enquanto ela estiver ativa */
+  html.lenis, html.lenis body { height: auto; }
+  html.lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: clip; }
+
+  /* Halftone suave sobre a página inteira: trama de pontos fixa */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    z-index: 99;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(26, 26, 26, .5) .7px, transparent 1.1px);
+    background-size: 5px 5px;
+    opacity: .05;
+  }
+  /* Grain suave sobre a página inteira */
+  body::after {
+    content: "";
+    position: fixed; inset: -50%;
+    z-index: 100;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    opacity: .05;
+  }
+  img { display: block; max-width: 100%; }
+  svg { flex: none; }
+
+  /* Tocáveis: entrada instantânea, saída suave */
+  .btn, .nav-cta, .socials a, .course, .tile-link, .round, .support {
+    transition:
+      transform var(--press-out) var(--ease-out),
+      background-color 200ms ease, color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  }
+  .btn:active, .nav-cta:active, .socials a:active, .course:active,
+  .tile-link:active, .round:active, .support:active { transition-duration: var(--press-in); }
+
+  /* ================= HERO (vídeo de fundo) ================= */
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: calc(100% - 16px);
+    margin: 8px auto 0;
+    min-height: calc(100vh - 16px);
+    min-height: calc(100svh - 16px);
+    display: flex; flex-direction: column;
+    padding: 0 18px 28px;
+    color: var(--cream);
+    border-radius: 26px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: -1;
+    background: var(--ink);
+  }
+  .hero-bg video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  /* Escurece só onde está o texto; o vídeo fica limpo no alto */
+  .hero-bg::after {
+    content: "";
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg,
+      rgba(26, 26, 26, .5) 0%,
+      rgba(26, 26, 26, 0) 22%,
+      rgba(26, 26, 26, 0) 32%,
+      rgba(26, 26, 26, .72) 58%,
+      rgba(26, 26, 26, .9) 100%);
+  }
+
+  /* Barra de navegação em pílula */
+  .nav {
+    position: relative;
+    width: 100%;
+    max-width: 860px;
+    margin: 10px auto 0;
+    display: flex; align-items: center; justify-content: center; gap: 32px;
+    padding: 8px 0;
+    color: var(--cream);
+    text-shadow: 0 1px 12px rgba(26, 26, 26, .35);
+  }
+  .logo { display: inline-flex; flex-direction: column; align-items: flex-end; line-height: 1; }
+  .logo b {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: -.04em;
+  }
+  .logo b i { font-style: normal; color: var(--terra-light); }
+  .logo small {
+    margin-top: 2px;
+    font-size: 7px; font-weight: 600;
+    letter-spacing: .22em;
+    color: rgba(244, 237, 226, .75);
+  }
+  .nav-links { display: none; gap: 28px; font-size: 13.5px; color: rgba(244, 237, 226, .85); }
+  .nav-links a { padding: 8px 0; transition: color 200ms ease; }
+  .nav-cta {
+    display: inline-flex; align-items: center;
+    min-height: 40px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: var(--terra-ui);
+    color: var(--cream);
+    font-size: 10.5px; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .nav-cta:active { transform: scale(.96); background-color: var(--terra-deep); }
+
+  /* Conteúdo no rodapé da hero: texto à esquerda, card de vidro à direita */
+  .hero-content {
+    width: 100%; max-width: 1120px;
+    margin: auto auto 0;
+    padding-top: 180px;
+    display: flex; flex-direction: column; gap: 24px;
+    text-align: left;
+  }
+  .hero-main { max-width: 640px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(244, 237, 226, .3);
+    background: rgba(26, 26, 26, .28);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: .01em;
+  }
+  .hero-tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--terra-light); }
+
+  .hero h1 {
+    margin-top: 16px;
+    text-wrap: balance;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(32px, 9.6vw, 64px);
+    line-height: 1.08;
+    letter-spacing: -.06em;
+  }
+  /* Efeito "persiana" (Blinds Text Reveal): um bloco terracota cobre cada linha,
+     o texto aparece por baixo e o bloco sai pela direita. */
+  .hero h1 .line {
+    position: relative;
+    display: block;
+    width: fit-content;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-bottom: .06em;
+  }
+  .hero h1 .txt {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--terra-light) 0%, #F2BFA2 34%, var(--cream) 64%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: blind-text 1s linear var(--d, 0s) both;
+  }
+  .hero h1 .blind {
+    position: absolute; inset: 0;
+    background: var(--terra);
+    transform: translateX(-101%);
+    animation: blind 1s linear var(--d, 0s) both;
+  }
+  .hero h1 .line:nth-child(1) { --d: .2s; }
+  .hero h1 .line:nth-child(2) { --d: .3s; }
+  @keyframes blind {
+    0%   { transform: translateX(-101%); animation-timing-function: cubic-bezier(.81, -.02, .55, .51); }
+    50%  { transform: translateX(0);     animation-timing-function: cubic-bezier(.28, .25, .18, .98); }
+    100% { transform: translateX(101%); }
+  }
+  @keyframes blind-text {
+    0%, 49.9% { opacity: 0; }
+    50%, 100% { opacity: 1; }
+  }
+  .lead {
+    max-width: 30em;
+    margin-top: 14px;
+    font-family: var(--display);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.55;
+    color: rgba(244, 237, 226, .9);
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 14px;
+    min-height: 50px;
+    padding: 0 6px 0 22px;
+    border-radius: 999px;
+    background: var(--terra-ui);
+    color: var(--cream);
+    font-family: var(--display);
+    font-size: 15px; font-weight: 400;
+    white-space: nowrap;
+    box-shadow: 0 12px 26px -14px rgba(0, 0, 0, .6);
+  }
+  .btn .sq {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--cream);
+    color: var(--terra-ui);
+    display: grid; place-items: center;
+  }
+  .btn .sq svg { width: 16px; height: 16px; }
+  .btn:active { transform: scale(.97); background-color: var(--terra-deep); }
+
+  .hero-actions {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 16px 18px;
+    margin-top: 24px;
+  }
+  .socials { display: flex; gap: 8px; }
+  .socials a {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(244, 237, 226, .28);
+    background: rgba(26, 26, 26, .3);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    display: grid; place-items: center;
+  }
+  .socials a:active { transform: scale(.94); background: var(--cream); color: var(--ink); border-color: var(--cream); }
+  .socials svg { width: 17px; height: 17px; }
+
+  /* Card de vidro (canto inferior direito, só em telas maiores) */
+  .hero-card {
+    display: none;
+    width: 300px; flex: none;
+    padding: 18px 20px 16px;
+    border-radius: 22px;
+    background: rgba(26, 26, 26, .34);
+    border: 1px solid rgba(244, 237, 226, .18);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+  }
+  .hero-card .hc-head { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; }
+  .hero-card .hc-ribbon { width: 20px; height: 24px; }
+  .hero-card p { margin-top: 10px; font-size: 13px; line-height: 1.5; color: rgba(244, 237, 226, .82); }
+  /* Botão do card: mesma família do botão principal, em tamanho menor */
+  .btn.btn-sm {
+    min-height: 42px;
+    margin-top: 16px;
+    padding: 0 5px 0 18px;
+    gap: 12px;
+    font-size: 13.5px;
+  }
+  .btn.btn-sm .sq { width: 32px; height: 32px; }
+  .btn.btn-sm .sq svg { width: 14px; height: 14px; }
+
+  /* ===== Efeito dos botões (ref. Finto): o rótulo sai por cima e uma cópia entra por baixo =====
+     O JS duplica o texto em .roll (a cópia fica aria-hidden) e as setas em .roll-icon. */
+  :root { --roll-dur: 440ms; --roll-ease: cubic-bezier(.4, 0, .2, 1); }
+  .btn, .nav-cta { overflow: hidden; }
+  /* Brilho no topo + aro claro, como o botão da referência */
+  .btn, .nav-cta {
+    background-image: linear-gradient(180deg, rgba(255, 236, 220, .2), rgba(255, 236, 220, 0) 60%);
+  }
+  .btn { box-shadow: inset 0 1px 0 rgba(255, 228, 208, .35), 0 12px 26px -14px rgba(0, 0, 0, .6); }
+  .nav-cta { box-shadow: inset 0 1px 0 rgba(255, 228, 208, .35); }
+
+  .roll { display: inline-grid; --roll-y: 60px; }
+  .roll > span {
+    grid-area: 1 / 1;
+    transition: transform var(--roll-dur) var(--roll-ease), opacity var(--roll-dur) var(--roll-ease);
+  }
+  .roll-b { opacity: 0; transform: translateY(var(--roll-y)) scale(1.4); }
+
+  .roll-icon { display: inline-grid; overflow: hidden; }
+  .roll-icon > svg { grid-area: 1 / 1; transition: transform var(--roll-dur) var(--roll-ease); }
+  .roll-icon > svg + svg { transform: translate(-130%, 130%); }
+
+  /* Foco pelo teclado e, no celular, a classe .is-rolling (toque ou primeira aparição) disparam o mesmo efeito do hover */
+  a:focus-visible .roll-a, a.is-rolling .roll-a { opacity: 0; transform: translateY(calc(var(--roll-y) * -1)) scale(.6); }
+  a:focus-visible .roll-b, a.is-rolling .roll-b { opacity: 1; transform: none; }
+  a:focus-visible .roll-icon > svg:first-child, a.is-rolling .roll-icon > svg:first-child { transform: translate(130%, -130%); }
+  a:focus-visible .roll-icon > svg + svg, a.is-rolling .roll-icon > svg + svg { transform: none; }
+
+  /* ================= NÚMEROS ================= */
+  .stats { padding: 28px 16px 8px; text-align: center; }
+  .stat-panel {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    max-width: 828px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 24px;
+    background: var(--cream-soft);
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 40px -28px rgba(26, 26, 26, .35);
+  }
+  /* Brilho quente saindo da borda esquerda, como na referência */
+  .stat-panel::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background: radial-gradient(55% 130% at 0% 50%, rgba(181, 83, 42, .1), transparent 75%);
+    pointer-events: none;
+  }
+  .stat {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    padding: 22px 10px;
+  }
+  .stat:nth-child(even) { border-left: 1px solid var(--line); }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .stat strong {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 30px; line-height: 1;
+    letter-spacing: -.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat strong i { font-style: normal; color: var(--terra); }
+  .stat small {
+    font-size: 11.5px; line-height: 1.35;
+    color: var(--muted);
+  }
+  .stats-caption {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ================= CARROSSEL 3D DE FOTOS ================= */
+  .gallery {
+    --card-w: 220px;
+    --card-h: 300px;
+    position: relative;
+    margin-top: 40px;
+    padding: 28px 0 36px;
+    overflow: hidden;
+    perspective: 1100px;
+    touch-action: pan-y;             /* o dedo rola a página na vertical e arrasta o carrossel na horizontal */
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  /* Desfoque progressivo nas laterais: 3 camadas de blur crescente, cada uma mais estreita que a anterior */
+  .g-edge {
+    position: absolute; top: 0; bottom: 0; z-index: 2;
+    width: clamp(64px, 13%, 220px);
+    pointer-events: none;
+  }
+  .g-edge-l { left: 0; }
+  .g-edge-r { right: 0; transform: scaleX(-1); }   /* mesma receita, espelhada */
+  .g-edge i {
+    position: absolute; inset: 0;
+    -webkit-backdrop-filter: blur(var(--b));
+    backdrop-filter: blur(var(--b));
+    -webkit-mask-image: linear-gradient(90deg, #000 var(--solid), transparent var(--end));
+    mask-image: linear-gradient(90deg, #000 var(--solid), transparent var(--end));
+  }
+  .g-edge i:nth-child(1) { --b: 2px;  --solid: 55%; --end: 100%; }
+  .g-edge i:nth-child(2) { --b: 6px;  --solid: 30%; --end: 72%; }
+  .g-edge i:nth-child(3) { --b: 14px; --solid: 0%;  --end: 45%; }
+  .gallery.is-dragging { cursor: grabbing; }
+  .gallery:focus-visible { outline: 2px solid var(--terra); outline-offset: -4px; }
+  .gallery-track {
+    position: relative;
+    height: var(--card-h);
+    transform-style: preserve-3d;
+  }
+  .g-card {
+    position: absolute; left: 50%; top: 0;
+    width: var(--card-w); height: var(--card-h);
+    margin-left: calc(var(--card-w) / -2);
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--ink-3);
+    box-shadow: 0 22px 40px -26px rgba(26, 26, 26, .55);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  .g-card img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    -webkit-user-drag: none;
+    pointer-events: none;
+    transition: transform 700ms var(--ease-out);
+  }
+  /* Espaço reservado até as fotos chegarem */
+  .g-ph {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    font-size: 12px; font-weight: 500;
+    color: rgba(244, 237, 226, .7);
+    background: radial-gradient(90% 70% at 50% 25%, var(--ph-a), var(--ph-b));
+  }
+  .g-ph svg { width: 28px; height: 28px; }
+  .g-card:nth-child(4n+1) .g-ph { --ph-a: #C9693F; --ph-b: #7E361A; }
+  .g-card:nth-child(4n+2) .g-ph { --ph-a: #4A3C33; --ph-b: #221E1B; }
+  .g-card:nth-child(4n+3) .g-ph { --ph-a: #F4EDE2; --ph-b: #D9B79B; color: rgba(26, 26, 26, .5); }
+  .g-card:nth-child(4n+4) .g-ph { --ph-a: #E3895F; --ph-b: #A94C25; }
+
+  @media (hover: hover) and (pointer: fine) {
+    .g-card:hover img { transform: scale(1.06); }
+  }
+  @media (min-width: 720px) {
+    .gallery { --card-w: 220px; --card-h: 300px; margin-top: 48px; padding: 24px 0 32px; }
+  }
+  @media (min-width: 1200px) {
+    .gallery { --card-w: 240px; --card-h: 325px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .g-card img { transition: none; }
+  }
+
+  /* ================= BENTO ================= */
+  .bento {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 190px 190px;
+    gap: 12px;
+  }
+
+  .feature {
+    grid-column: 1 / -1;
+    border-radius: var(--radius);
+    background: var(--terra-ui);
+    color: var(--cream);
+    padding: 26px 20px 20px;
+    position: relative;
+    overflow: hidden;
+    scroll-margin-top: 16px;
+  }
+  .feature::after {
+    content: "";
+    position: absolute; right: -70px; bottom: -90px;
+    width: 240px; height: 240px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(244, 237, 226, .16), transparent 70%);
+    pointer-events: none;
+  }
+  .tag {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: var(--ink);
+    font-size: 10px; font-weight: 600;
+    letter-spacing: .12em; text-transform: uppercase;
+  }
+  .tag i { width: 6px; height: 6px; border-radius: 50%; background: #F2C230; }
+  .feature h2 {
+    margin-top: 16px;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: clamp(28px, 8vw, 34px);
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    color: var(--ink);
+  }
+  .feature h2 span { color: var(--cream); }
+  .feature p {
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .course-list {
+    position: relative; z-index: 1;
+    margin-top: 18px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .course {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    min-height: 58px;
+    padding: 6px;
+    border-radius: 14px;
+    background: var(--ink);
+    font-size: 14.5px; font-weight: 500;
+  }
+  .course .thumb {
+    width: 46px; height: 46px;
+    flex: none;
+    border-radius: 10px;
+    object-fit: cover;
+    background: var(--ink-3);
+  }
+  .course .info { flex: 1; min-width: 0; line-height: 1.3; }
+  .course small {
+    display: block;
+    font-size: 11px; font-weight: 500;
+    color: var(--terra-light);
+    letter-spacing: .02em;
+  }
+  .course .arrow {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: var(--terra);
+    display: grid; place-items: center;
+  }
+  .course .arrow svg { width: 15px; height: 15px; }
+  .course:active { transform: scale(.98); background: var(--ink-3); }
+
+  /* Tiles com foto */
+  .tile {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    isolation: isolate;
+    color: var(--cream);
+    scroll-margin-top: 16px;
+  }
+  .tile .photo { position: absolute; inset: 0; z-index: -2; }
+  .tile::after {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(to top, rgba(26, 26, 26, .35), rgba(26, 26, 26, 0) 45%);
+    pointer-events: none;
+  }
+  .tile-link { display: block; height: 100%; }
+  .tile-link:active { transform: scale(.98); }
+  /* Etiqueta escura sólida: o título fica legível mesmo sobre fotos com texto */
+  .tile-body {
+    position: absolute; left: 8px; right: 8px; bottom: 8px;
+    padding: 11px 13px 12px;
+    border-radius: 18px;
+    background: rgba(26, 26, 26, .82);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    text-align: left;
+  }
+  .tile-body strong {
+    display: block;
+    font-weight: 600;
+    font-size: 15px; line-height: 1.2;
+    letter-spacing: -.01em;
+  }
+  .tile-body small { display: block; margin-top: 3px; font-size: 12px; color: rgba(244, 237, 226, .85); }
+  .chip {
+    position: absolute; top: 12px; right: 12px;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(244, 237, 226, .85);
+    color: var(--ink);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    display: grid; place-items: center;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+  .chip svg { width: 14px; height: 14px; }
+  .round-row { display: flex; gap: 8px; margin-top: 10px; }
+  .round {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--cream);
+    color: var(--ink);
+    display: grid; place-items: center;
+  }
+  .round.alt { background: var(--ink); color: var(--cream); }
+  .round svg { width: 17px; height: 17px; }
+  .round:active { transform: scale(.92); }
+
+  .t-escolas { grid-column: 1; grid-row: 2; }
+  .t-podcast { grid-column: 1; grid-row: 3; }
+  .t-livros  { grid-column: 2; grid-row: 2 / span 2; }
+
+  /* Placeholders enquanto as fotos não existem */
+  .photo {
+    display: grid; place-items: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #E4D6C3, #CDB79D);
+  }
+  .photo img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 500ms var(--ease-out);
+  }
+  .photo img.is-loaded { opacity: 1; }
+  .ph {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    margin-bottom: 56px;
+    font-size: 10.5px; font-weight: 500; letter-spacing: .04em;
+    color: rgba(26, 26, 26, .45);
+  }
+  .ph svg { width: 30px; height: 30px; }
+  .t-escolas .photo { background: radial-gradient(90% 80% at 50% 20%, #D8C4AE, #A88B72); }
+  .t-podcast .photo { background: radial-gradient(90% 80% at 50% 20%, #D27A52, #9A4523); }
+  .t-podcast .ph { color: rgba(244, 237, 226, .75); margin-bottom: 96px; }
+  .t-livros .photo { background: radial-gradient(90% 70% at 50% 25%, #EFE3D3, #C9AB8E); }
+
+  /* Suporte */
+  .support {
+    max-width: 828px;
+    margin: 12px auto 0;
+    width: calc(100% - 32px);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 12px 12px 12px 16px;
+    border-radius: 18px;
+    background: var(--cream-soft);
+    border: 1px solid var(--line);
+    scroll-margin-top: 16px;
+  }
+  .support-label { display: flex; align-items: center; gap: 12px; text-align: left; }
+  .support-icon {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--terra-ui); color: var(--cream);
+    display: grid; place-items: center;
+  }
+  .support-icon svg { width: 19px; height: 19px; }
+  .support strong { display: block; font-size: 14.5px; font-weight: 600; line-height: 1.25; }
+  .support small { font-size: 12px; color: var(--muted); }
+  .support .go {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: var(--ink); color: var(--cream);
+    display: grid; place-items: center;
+  }
+  .support .go svg { width: 15px; height: 15px; }
+  .support:active { transform: scale(.985); background: #fff; }
+
+  footer {
+    margin-top: 44px;
+    padding: 0 16px calc(32px + env(safe-area-inset-bottom));
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  footer .logo { align-items: center; margin-bottom: 10px; color: var(--ink); }
+  footer .logo b i { color: var(--terra); }
+  footer .logo small { display: none; }
+
+  /* Hover só com mouse, para não grudar no celular */
+  @media (hover: hover) and (pointer: fine) {
+    .nav-links a:hover { color: #fff; }
+    .nav-cta:hover, .btn:hover { background-color: var(--terra-deep); }
+    a:hover .roll-a { opacity: 0; transform: translateY(calc(var(--roll-y) * -1)) scale(.6); }
+    a:hover .roll-b { opacity: 1; transform: none; }
+    a:hover .roll-icon > svg:first-child { transform: translate(130%, -130%); }
+    a:hover .roll-icon > svg + svg { transform: none; }
+    .socials a:hover { background: var(--cream); color: var(--ink); border-color: var(--cream); transform: translateY(-2px); }
+    .course:hover { background: var(--ink-3); transform: translateX(3px); }
+    .tile-link:hover { transform: scale(1.02); }
+    .tile:has(.tile-link:hover) .chip { background: var(--terra-ui); color: var(--cream); }
+    .round:hover { transform: translateY(-2px); }
+    .support:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 16px 30px -20px rgba(26, 26, 26, .4); }
+  }
+
+  /* Entrada da primeira tela (~0,5s) */
+  .reveal { opacity: 0; transform: translateY(10px); animation: rise .5s var(--ease-out) forwards; }
+  .d1 { animation-delay: .04s; } .d2 { animation-delay: .1s; }
+  .d3 { animation-delay: .16s; } .d4 { animation-delay: .22s; } .d5 { animation-delay: .28s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+  /* Blocos de baixo sobem ao entrar na tela (só com JS) */
+  .js .in-view { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s var(--ease-out); }
+  .js .in-view.is-visible { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transform: none; animation-name: fade; }
+    .hero h1 .blind { display: none; }
+    .hero h1 .txt { animation: none; }
+    .js .in-view { transform: none; }
+    /* Movimento reduzido: sem troca de rótulo nem seta voando; fica só a mudança de cor */
+    .roll-b, .roll-icon > svg + svg { display: none; }
+    a:hover .roll-a, a:focus-visible .roll-a, a.is-rolling .roll-a,
+    a:hover .roll-icon > svg:first-child, a:focus-visible .roll-icon > svg:first-child,
+    a.is-rolling .roll-icon > svg:first-child { opacity: 1; transform: none; }
+    .btn:active, .nav-cta:active, .socials a:active, .course:active, .tile-link:active,
+    .round:active, .support:active, .tile-link:hover, .course:hover, .socials a:hover,
+    .round:hover, .support:hover { transform: none; }
+  }
+
+  /* ===== Telas maiores ===== */
+  @media (min-width: 720px) {
+    /* Hero ocupa a tela inteira, de ponta a ponta; o vídeo cobre todo o retângulo */
+    .hero {
+      width: calc(100% - 32px);
+      margin-top: 16px;
+      height: calc(100vh - 32px); height: calc(100svh - 32px);
+      min-height: 620px;
+      padding: 0 48px 48px;
+      border-radius: 36px;
+    }
+    .hero-bg video { object-position: 50% 32%; }
+    /* Escuro vindo de baixo e da esquerda, onde fica o texto */
+    .hero-bg::after {
+      background:
+        linear-gradient(0deg, rgba(26, 26, 26, .88) 0%, rgba(26, 26, 26, .3) 45%, rgba(26, 26, 26, 0) 70%),
+        linear-gradient(90deg, rgba(26, 26, 26, .6) 0%, rgba(26, 26, 26, 0) 60%),
+        linear-gradient(180deg, rgba(26, 26, 26, .45) 0%, rgba(26, 26, 26, 0) 18%);
+    }
+    /* Texto e card encostam na margem interna da hero (48px), sem coluna central */
+    .hero-content { max-width: none; flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 40px; }
+    .hero-card { display: block; }
+    .nav { max-width: none; margin-top: 20px; }
+    .nav-links { display: flex; }
+    .lead { font-size: 18px; }
+
+    .stats { padding-top: 40px; }
+    .stat-panel { grid-template-columns: repeat(4, 1fr); padding: 0 12px; }
+    .stat { padding: 30px 8px; }
+    .stat:nth-child(even) { border-left: 0; }
+    .stat:nth-child(n+3) { border-top: 0; }
+    .stat strong { font-size: 38px; }
+    .stat small { font-size: 12.5px; }
+    .stats-caption { font-size: 14px; }
+
+    .bento {
+      margin-top: 64px;
+      grid-template-columns: 1.25fr 1fr .8fr;
+      grid-template-rows: repeat(2, minmax(220px, auto));
+      gap: 14px;
+    }
+    .feature { grid-column: 1; grid-row: 1 / span 2; padding: 32px 28px 24px; }
+    .t-escolas { grid-column: 2; grid-row: 1; }
+    .t-podcast { grid-column: 2; grid-row: 2; }
+    .t-livros  { grid-column: 3; grid-row: 1 / span 2; }
+    .tile-body { left: 10px; right: 10px; bottom: 10px; padding: 14px 16px; }
+    .tile-body strong { font-size: 17px; }
+    .support { margin-top: 14px; }
+  }
+
+  @media (max-width: 360px) {
+    .nav-cta { padding: 0 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Ícones -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-ribbon" viewBox="0 0 71 83"><path fill-rule="evenodd" clip-rule="evenodd" fill="#EBA100" d="M33.0703 0.00158966C33.0703 0.00158966 41.9151 -0.286951 44.9668 6.91077C47.5019 12.8908 50.9362 22.9114 52.0264 26.1324C52.0288 26.1392 52.0319 26.1455 52.0342 26.152C52.0544 26.2119 52.0763 26.2746 52.0947 26.3297L52.1445 26.5016C52.1533 26.5337 52.1604 26.571 52.1709 26.6119C52.1871 26.6748 52.2044 26.7479 52.2236 26.8307C52.2744 27.0494 52.3357 27.3361 52.3916 27.6852C52.3947 27.7046 52.3983 27.724 52.4014 27.7438C52.4102 27.8008 52.4181 27.8594 52.4268 27.9196C52.4372 27.9925 52.4471 28.0677 52.457 28.1451C52.4668 28.2209 52.4773 28.2986 52.4863 28.3785C52.4977 28.4788 52.5066 28.5824 52.5166 28.6891C52.5218 28.744 52.5294 28.7995 52.5342 28.8561C52.5336 28.855 52.5328 28.8542 52.5322 28.8532C52.7779 31.7773 52.4405 36.9279 48.542 42.6129L70.0293 66.2028L53.6895 81.4606C53.6895 81.4606 43.9849 70.6829 34.8154 60.3551C34.7306 60.4626 34.6455 60.5698 34.5605 60.6774C34.1096 61.2485 33.6599 61.8227 33.208 62.3942C33.2071 62.3932 33.206 62.3923 33.2051 62.3912C25.1591 72.5667 17.1953 82.5172 17.1953 82.5172L0 68.2291L20.0869 43.4362C15.1556 37.0681 15.1207 31.1471 15.3945 28.6432C15.4083 28.5168 15.4227 28.3992 15.4375 28.2907C15.446 28.2281 15.4534 28.1684 15.4619 28.1119C15.4683 28.0694 15.4761 28.0289 15.4824 27.9899C15.4968 27.9016 15.5084 27.8222 15.5215 27.7526L15.5469 27.6315C15.5521 27.6058 15.5559 27.5819 15.5605 27.5602L15.6006 27.3864L15.6504 27.2047C15.6528 27.1962 15.6556 27.1874 15.6582 27.1783L16.5752 23.8893C17.855 19.3577 19.9196 12.2726 21.5938 7.58655C24.2173 0.244405 33.0233 0.00282939 33.0703 0.00158966ZM33.5117 15.2477C30.6069 15.3317 27.8653 16.0302 25.4033 17.2096L33.835 26.4664L41.7188 16.7379L41.7197 16.7369C39.1938 15.702 36.4164 15.1637 33.5117 15.2477Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 3c.3 2.2 1.7 3.8 3.9 4v3.1c-1.4.1-2.8-.3-3.9-1.1v6.3a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v3.2a2.6 2.6 0 1 0 1.7 2.4V3h3.1z"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5H16l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8v3h2.6V21h2.9z"/></symbol>
+  <symbol id="i-youtube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.3l-4.5 1.2z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-1 .9c-1-.4-2-1.4-2.4-2.4l.9-1-1-2L9 8.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></symbol>
+</svg>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <!-- Usa fotos/hero.mp4 se existir; senão, o vídeo do Linktree -->
+    <video muted loop playsinline preload="auto"
+      poster="https://ugc.production.linktr.ee/fb84c6d6-1bfc-4a1c-8548-b148f63656e1_thumbnail.jpeg">
+      <source src="fotos/hero.mp4" type="video/mp4">
+      <source src="https://ugc.production.linktr.ee/5a06d08b-07e3-4435-a964-81c49ac98099_0113-6-.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <nav class="nav reveal d1" aria-label="Principal">
+    <div class="nav-links">
+      <a href="#cursos">Cursos</a>
+      <a href="#podcast">Podcast</a>
+      <a href="#livros">Livros</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <a class="nav-cta" href="https://wa.me/553171890371" target="_blank" rel="noopener">Fale conosco</a>
+  </nav>
+
+  <div class="hero-content">
+    <div class="hero-main">
+      <span class="hero-tag reveal d2"><i></i>Psiquiatra · Escritora · Palestrante</span>
+      <h1><span class="line"><span class="txt">Entenda a mente,</span><i class="blind" aria-hidden="true"></i></span><span class="line"><span class="txt">transforme a vida</span><i class="blind" aria-hidden="true"></i></span></h1>
+      <p class="lead reveal d3">Dra. Ana Beatriz Barbosa: cursos, podcast e livros para cuidar da sua saúde mental.</p>
+
+      <div class="hero-actions reveal d4">
+        <a class="btn" href="#cursos">Ver cursos com 50% off <span class="sq"><svg><use href="#i-arrow"/></svg></span></a>
+        <div class="socials" aria-label="Redes sociais">
+          <a href="https://www.instagram.com/anabeatriz11/" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
+          <a href="https://www.tiktok.com/@draanabeatriz11" target="_blank" rel="noopener" aria-label="TikTok"><svg><use href="#i-tiktok"/></svg></a>
+          <a href="https://www.youtube.com/@podpeopleanabeatriz" target="_blank" rel="noopener" aria-label="YouTube"><svg><use href="#i-youtube"/></svg></a>
+          <a href="https://www.facebook.com/draanabeatriz" target="_blank" rel="noopener" aria-label="Facebook"><svg><use href="#i-facebook"/></svg></a>
+          <a href="https://www.whatsapp.com/channel/0029VbBUFacCRs1hpgT4cG42" target="_blank" rel="noopener" aria-label="Canal no WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
+          <a href="mailto:contato@grupopodpeople.com.br" aria-label="E-mail"><svg><use href="#i-mail"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <aside class="hero-card reveal d5">
+      <div class="hc-head"><svg class="hc-ribbon" aria-hidden="true"><use href="#i-ribbon"/></svg>Setembro Amarelo</div>
+      <p>Cursos TDAH 2.0, Mentes Aflitas, Mentes Depressivas e Borderline com 50% de desconto.</p>
+      <a class="btn btn-sm" href="#cursos">Ver cursos <span class="sq"><svg><use href="#i-arrow"/></svg></span></a>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= NÚMEROS ================= -->
+<section class="stats in-view">
+  <!-- O número conta de 0 até o valor ao aparecer na tela (aceita decimal com vírgula, ex: 14,8) -->
+  <div class="stat-panel">
+    <div class="stat"><strong><span class="n">12</span><i>+</i></strong><small>livros publicados</small></div>
+    <div class="stat"><strong><span class="n">30</span><i>+</i></strong><small>anos de atuação</small></div>
+    <div class="stat"><strong><span class="n">5</span><i>mil+</i></strong><small>alunos nos cursos</small></div>
+    <div class="stat"><strong><span class="n">14,8</span><i>mi</i></strong><small>seguidores somando todas as redes</small></div>
+  </div>
+  <p class="stats-caption">Saúde mental explicada de um jeito que todo mundo entende</p>
+</section>
+
+<!-- ================= CARROSSEL 3D DE FOTOS =================
+     Coloque as fotos em fotos/carrossel-1.jpg ... carrossel-8.jpg (verticais, ~800x1100).
+     Para mais ou menos fotos, copie ou apague um <figure>. Troque o alt de cada foto. -->
+<section class="gallery" tabindex="0" aria-roledescription="carrossel" aria-label="Fotos da Dra. Ana Beatriz. Arraste ou use as setas do teclado.">
+  <div class="gallery-track">
+    <figure class="g-card"><div class="g-ph"><svg><use href="#i-image"/></svg>Foto 1</div><img src="fotos/carrossel-1.jpg" alt="" loading="lazy" onerror="this.remove()"></figure>
+    <figure class="g-card"><div class="g-ph"><svg><use href="#i-image"/></svg>Foto 2</div><img src="fotos/carrossel-2.jpg" alt="" loading="lazy" onerror="this.remove()"></figure>
+    <figure class="g-card"><div class="g-ph"><svg><use href="#i-image"/></svg>Foto 3</div><img src="fotos/carrossel-3.jpg" alt="" loading="lazy" onerror="this.remove()"></figure>
+    <figure class="g-card"><div class="g-ph"><svg><use href="#i-image"/></svg>Foto 4</div><img src="fotos/carrossel-4.jpg" alt="" loading="lazy" onerror="this.remove()"></figure>
+    <figure class="g-card"><div class="g-ph"><svg><use href="#i-image"/></svg>Foto 5</div><img src="fotos/carrossel-5.jpg" alt="" loading="lazy" onerror="this.remove()"></figure>
+    <figure class="g-card"><div class="g-ph"><svg><use href="#i-image"/></svg>Foto 6</div><img src="fotos/carrossel-6.jpg" alt="" loading="lazy" onerror="this.remove()"></figure>
+    <figure class="g-card"><div class="g-ph"><svg><use href="#i-image"/></svg>Foto 7</div><img src="fotos/carrossel-7.jpg" alt="" loading="lazy" onerror="this.remove()"></figure>
+    <figure class="g-card"><div class="g-ph"><svg><use href="#i-image"/></svg>Foto 8</div><img src="fotos/carrossel-8.jpg" alt="" loading="lazy" onerror="this.remove()"></figure>
+  </div>
+  <div class="g-edge g-edge-l" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="g-edge g-edge-r" aria-hidden="true"><i></i><i></i><i></i></div>
+</section>
+
+<!-- ================= BENTO ================= -->
+<main class="bento">
+
+  <section class="feature in-view" id="cursos">
+    <span class="tag"><i></i>Setembro Amarelo</span>
+    <h2>Cursos com<br><span>50% off!</span></h2>
+    <p>Aprenda sobre saúde mental com a Dra. Ana Beatriz.</p>
+    <div class="course-list">
+      <a class="course" href="https://lp.draanabeatriz.com.br/tdah2-vsl5" target="_blank" rel="noopener">
+        <img class="thumb" src="https://ugc.production.linktr.ee/a0d9472f-ce54-4ace-b5b9-ef0c28c1027e_tdah-2.0--1-.png" alt="" width="46" height="46" loading="lazy">
+        <span class="info">TDAH 2.0<small>50% de desconto</small></span>
+        <span class="arrow"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="course" href="https://lp.draanabeatriz.com.br/mentes-aflitas" target="_blank" rel="noopener">
+        <img class="thumb" src="https://ugc.production.linktr.ee/03cdfd49-4149-470a-952b-c796ab00f2c7_Design-sem-nome--53-.jpeg" alt="" width="46" height="46" loading="lazy">
+        <span class="info">Mentes Aflitas 2.0<small>50% de desconto</small></span>
+        <span class="arrow"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="course" href="https://lp.draanabeatriz.com.br/mentes-depressivas" target="_blank" rel="noopener">
+        <img class="thumb" src="https://ugc.production.linktr.ee/3acf3f8d-1c2d-4be7-9ce8-a3d33a88f870_mentes-depressivas--1-.png" alt="" width="46" height="46" loading="lazy">
+        <span class="info">Mentes Depressivas<small>50% de desconto</small></span>
+        <span class="arrow"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="course" href="https://lp.draanabeatriz.com.br/curso-borderline" target="_blank" rel="noopener">
+        <img class="thumb" src="https://ugc.production.linktr.ee/24ff8fe4-214c-42ef-8b4a-3d81815a3190_mentes-que-amam-demais.png" alt="" width="46" height="46" loading="lazy">
+        <span class="info">Borderline<small>50% de desconto</small></span>
+        <span class="arrow"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <div class="tile t-escolas in-view">
+    <a class="tile-link" href="https://lp.draanabeatriz.com.br/saude-mental-nas-escolas/" target="_blank" rel="noopener">
+      <div class="photo"><div class="ph"><svg><use href="#i-image"/></svg>fotos/escolas.jpg</div><img style="object-position: 30% 15%" src="https://ugc.production.linktr.ee/1055fadf-5534-429c-987e-164a10efa90d_maxresdefault.jpeg" alt="" loading="lazy" onerror="this.remove()"></div>
+      <span class="chip"><svg><use href="#i-arrow"/></svg></span>
+      <div class="tile-body"><strong>Saúde Mental nas Escolas</strong><small>Garanta sua vaga</small></div>
+    </a>
+  </div>
+
+  <div class="tile t-podcast in-view" id="podcast">
+    <div class="photo"><div class="ph"><svg><use href="#i-image"/></svg>fotos/podcast.jpg</div><img src="fotos/podcast.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+    <div class="tile-body">
+      <strong>Podcast PodPeople</strong>
+      <div class="round-row">
+        <a class="round" href="https://www.youtube.com/@podpeopleanabeatriz" target="_blank" rel="noopener" aria-label="Assistir o PodPeople no YouTube"><svg><use href="#i-youtube"/></svg></a>
+        <a class="round alt" href="https://www.instagram.com/podpeople_/" target="_blank" rel="noopener" aria-label="Seguir o PodPeople no Instagram"><svg><use href="#i-instagram"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="tile t-livros in-view" id="livros">
+    <a class="tile-link" href="https://www.amazon.com.br/stores/author/B0BXR3L6TS/allbooks" target="_blank" rel="noopener">
+      <div class="photo"><div class="ph"><svg><use href="#i-image"/></svg>fotos/livros.jpg</div><img src="fotos/livros.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+      <span class="chip"><svg><use href="#i-arrow"/></svg></span>
+      <div class="tile-body"><strong>Biblioteca da Dra. Ana Beatriz</strong><small>Conheça meus livros</small></div>
+    </a>
+  </div>
+
+</main>
+
+<a class="support in-view" id="contato" href="https://wa.me/553171890371" target="_blank" rel="noopener">
+  <span class="support-label">
+    <span class="support-icon"><svg><use href="#i-whatsapp"/></svg></span>
+    <span><strong>Dúvidas?</strong><small>Fale com o suporte no WhatsApp</small></span>
+  </span>
+  <span class="go"><svg><use href="#i-arrow"/></svg></span>
+</a>
+
+<footer>
+  <span class="logo"><b>ana<i>beatriz</i></b></span>
+  © 2026 · Todos os direitos reservados
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script>
+  // Sem um listener de toque, o Safari do iOS (e o navegador do Instagram) ignora :active
+  document.addEventListener('touchstart', function () {}, { passive: true });
+
+  var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Efeito dos botões: duplica o rótulo (.roll) e a seta (.roll-icon); as cópias ficam fora do leitor de tela
+  document.querySelectorAll('.btn, .nav-cta').forEach(function (el) {
+    var node = Array.prototype.find.call(el.childNodes, function (n) { return n.nodeType === 3 && n.textContent.trim(); });
+    if (!node) return;
+    var label = node.textContent.trim();
+    var roll = document.createElement('span');
+    roll.className = 'roll';
+    roll.innerHTML = '<span class="roll-a"></span><span class="roll-b" aria-hidden="true"></span>';
+    roll.firstChild.textContent = label;
+    roll.lastChild.textContent = label;
+    el.replaceChild(roll, node);
+  });
+  document.querySelectorAll('.btn .sq, .course .arrow, .chip, .support .go').forEach(function (box) {
+    var svg = box.querySelector(':scope > svg');
+    if (!svg) return;
+    var wrap = document.createElement('span');
+    wrap.className = 'roll-icon';
+    wrap.setAttribute('aria-hidden', 'true');
+    svg.replaceWith(wrap);
+    wrap.append(svg, svg.cloneNode(true));
+  });
+
+  // No celular o efeito roda no toque e, uma vez, quando cada botão aparece na tela
+  var rollTimers = new WeakMap();
+  var noHover = matchMedia('(hover: none)');
+  function playRoll(a, hold) {
+    if (reduceMotion) return;
+    clearTimeout(rollTimers.get(a));
+    a.classList.add('is-rolling');
+    rollTimers.set(a, setTimeout(function () { a.classList.remove('is-rolling'); }, hold));
+  }
+  // Toque (não mouse): começa no instante em que o dedo encosta, sem atrasar a abertura do link
+  document.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'mouse') return;
+    var a = e.target.closest && e.target.closest('a');
+    if (a && a.querySelector('.roll, .roll-icon')) playRoll(a, 900);
+  }, { passive: true });
+
+  if ('IntersectionObserver' in window) {
+    var introIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting || !noHover.matches) return;
+        introIO.unobserve(entry.target);
+        var a = entry.target;
+        setTimeout(function () { playRoll(a, 1100); }, 700);
+      });
+    }, { threshold: 1 });
+    document.querySelectorAll('.btn, .nav-cta').forEach(function (a) { introIO.observe(a); });
+  }
+
+  // Rolagem suave com inércia (mouse/trackpad); no toque do celular fica o scroll nativo
+  if (window.Lenis && !reduceMotion) {
+    var lenis = new Lenis({ lerp: .09, wheelMultiplier: 1 });
+    (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
+    // Links internos (#cursos, #livros...) deslizam até a seção
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href');
+        var target = id.length > 1 ? document.querySelector(id) : 0;
+        if (target === null) return;
+        e.preventDefault();
+        lenis.scrollTo(target || 0, { offset: -16, duration: 1.2 });
+      });
+    });
+  }
+
+  // Fotos entram com fade quando carregam
+  document.querySelectorAll('.photo img').forEach(function (img) {
+    function show() { img.classList.add('is-loaded'); }
+    if (img.complete && img.naturalWidth) show();
+    else img.addEventListener('load', show, { once: true });
+  });
+
+  // Vídeo do topo: toca só com a hero na tela e a aba visível; com "reduzir movimento", fica parado no pôster
+  var hero = document.querySelector('.hero');
+  var video = hero.querySelector('video');
+  var heroOnScreen = true;
+  function syncVideo() {
+    if (reduceMotion || !heroOnScreen || document.hidden) { video.pause(); return; }
+    var p = video.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  syncVideo();
+  document.addEventListener('visibilitychange', syncVideo);
+
+  // Números da faixa contam de 0 até o valor ao entrar na tela (ignora o que não for número)
+  function countUp(el) {
+    var text = el.textContent.trim();
+    // Formato brasileiro: ponto separa milhar, vírgula separa decimal
+    var target = parseFloat(text.replace(/\./g, '').replace(',', '.'));
+    if (isNaN(target) || reduceMotion) return;
+    var decimals = (text.split(',')[1] || '').length;
+    var fmt = function (v) {
+      return v.toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    };
+    var start = null, dur = 1400;
+    el.textContent = fmt(0);
+    requestAnimationFrame(function step(t) {
+      if (start === null) start = t;
+      var p = Math.min((t - start) / dur, 1);
+      el.textContent = p < 1 ? fmt(target * (1 - Math.pow(1 - p, 3))) : text;
+      if (p < 1) requestAnimationFrame(step);
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      heroOnScreen = entries[0].isIntersecting;
+      syncVideo();
+    }).observe(hero);
+
+    new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('.n').forEach(countUp);
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: .4 }).observe(document.querySelector('.stat-panel'));
+
+    // Blocos sobem ao entrar na tela; depois a classe sai para liberar as transições de toque
+    var io = new IntersectionObserver(function (entries) {
+      var i = 0;
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target, delay = i++ * 70;
+        el.style.transitionDelay = delay + 'ms';
+        el.classList.add('is-visible');
+        io.unobserve(el);
+        setTimeout(function () {
+          el.classList.remove('in-view', 'is-visible');
+          el.style.transitionDelay = '';
+        }, 700 + delay);
+      });
+    }, { rootMargin: '0px 0px -24px 0px' });
+    document.querySelectorAll('.in-view').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.in-view').forEach(function (el) { el.classList.remove('in-view'); });
+  }
+</script>
+
+<script>
+  // ===== Carrossel 3D: desliza sozinho, arrasta com inércia, inclina com a velocidade =====
+  (function () {
+    var gallery = document.querySelector('.gallery');
+    if (!gallery) return;
+    var track = gallery.querySelector('.gallery-track');
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cards, cardW, spacing, total, half;
+
+    function measure() {
+      cards = Array.prototype.slice.call(track.children);
+      cardW = cards[0].offsetWidth;
+      spacing = cardW + (innerWidth < 720 ? 6 : 8);
+      // Com poucas fotos, duplica até a volta ficar maior que a tela (sem buraco no loop)
+      while (cards.length * spacing < innerWidth * 1.8) {
+        cards.slice(0).forEach(function (c) {
+          var copy = c.cloneNode(true);
+          copy.setAttribute('aria-hidden', 'true');
+          track.appendChild(copy);
+        });
+        cards = Array.prototype.slice.call(track.children);
+      }
+      total = cards.length * spacing;
+      half = total / 2;
+    }
+    measure();
+
+    var offset = 0;          // posição do carrossel (px)
+    var velocity = 0;        // px/s (inércia depois de soltar)
+    var drift = reduce ? 0 : -(innerWidth < 720 ? 26 : 34);  // movimento automático (px/s)
+    var driftFactor = 1;     // desacelera no hover
+    var dragging = false, lastX = 0, lastT = 0, moved = 0;
+    var running = false, onScreen = false, prev = 0;
+
+    function wrap(x) { return ((x + half) % total + total) % total - half; }
+
+    function render(dt) {
+      var tilt = Math.max(-10, Math.min(10, (velocity + drift * driftFactor) * -0.012));
+      var reach = innerWidth / 2 + spacing;
+      for (var i = 0; i < cards.length; i++) {
+        var x = wrap(i * spacing + offset);
+        var card = cards[i];
+        if (Math.abs(x) > reach + spacing) { card.style.visibility = 'hidden'; continue; }
+        card.style.visibility = '';
+        if (reduce) { card.style.transform = 'translate3d(' + x + 'px,0,0)'; continue; }
+        var d = Math.max(-1.6, Math.min(1.6, x / (innerWidth / 2)));   // -1 (esquerda) .. 1 (direita)
+        var rot = -d * 16 + tilt;                                       // gira para o centro, como um arco
+        var z = -Math.abs(d) * 110;                                     // laterais recuam
+        card.style.transform = 'translate3d(' + x + 'px,0,' + z + 'px) rotateY(' + rot + 'deg)';
+      }
+    }
+
+    function tick(t) {
+      if (!running) return;
+      var dt = Math.min(0.05, (t - prev) / 1000 || 0);
+      prev = t;
+      if (!dragging) {
+        offset += (velocity + drift * driftFactor) * dt;
+        velocity *= Math.pow(0.04, dt);               // atrito: a inércia some em ~1s
+        if (Math.abs(velocity) < 2) velocity = 0;
+      }
+      render(dt);
+      requestAnimationFrame(tick);
+    }
+    function start() { if (running) return; running = true; prev = performance.now(); requestAnimationFrame(tick); }
+    function stop() { running = false; }
+    function sync() { (onScreen && !document.hidden) ? start() : stop(); }
+
+    render(0);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { onScreen = e[0].isIntersecting; sync(); }).observe(gallery);
+    } else { onScreen = true; sync(); }
+    document.addEventListener('visibilitychange', sync);
+
+    // Arrastar (mouse ou dedo): segue 1:1 e, ao soltar, herda a velocidade do gesto
+    gallery.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      dragging = true; moved = 0;
+      lastX = e.clientX; lastT = performance.now();
+      velocity = 0;
+      gallery.setPointerCapture(e.pointerId);
+      gallery.classList.add('is-dragging');
+    });
+    gallery.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var now = performance.now();
+      var dx = e.clientX - lastX;
+      offset += dx; moved += Math.abs(dx);
+      var dt = Math.max(1, now - lastT) / 1000;
+      velocity = velocity * 0.6 + (dx / dt) * 0.4;     // média suave da velocidade do dedo
+      lastX = e.clientX; lastT = now;
+      if (!running) render(0);
+    });
+    function release() {
+      if (!dragging) return;
+      dragging = false;
+      gallery.classList.remove('is-dragging');
+      if (performance.now() - lastT > 90) velocity = 0; // parou antes de soltar: sem arremesso
+      velocity = Math.max(-2600, Math.min(2600, velocity));
+    }
+    gallery.addEventListener('pointerup', release);
+    gallery.addEventListener('pointercancel', release);
+
+    // Trackpad/roda na horizontal
+    gallery.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // rolagem vertical continua sendo da página
+      e.preventDefault();
+      offset -= e.deltaX;
+      if (!running) render(0);
+    }, { passive: false });
+
+    // Teclado: setas empurram o carrossel
+    gallery.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { velocity -= 900; e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { velocity += 900; e.preventDefault(); }
+      if (reduce && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+        offset += e.key === 'ArrowRight' ? -spacing : spacing; velocity = 0; render(0);
+      }
+    });
+
+    // Hover desacelera o movimento automático para olhar a foto
+    gallery.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') driftFactor = 0.25; });
+    gallery.addEventListener('pointerleave', function () { driftFactor = 1; });
+
+    var resizeT;
+    addEventListener('resize', function () {
+      clearTimeout(resizeT);
+      resizeT = setTimeout(function () { measure(); render(0); }, 150);
+    });
+  })();
+</script>
+</body>
+</html>
