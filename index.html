@@ -82,12 +82,12 @@
   svg { flex: none; }
 
   /* Tocáveis: entrada instantânea, saída suave */
-  .btn, .nav-cta, .socials a, .course, .tile-link, .round, .support {
+  .btn-venit, .socials a, .course, .tile-link, .round, .support {
     transition:
       transform var(--press-out) var(--ease-out),
       background-color 200ms ease, color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
   }
-  .btn:active, .nav-cta:active, .socials a:active, .course:active,
+  .btn-venit:active, .socials a:active, .course:active,
   .tile-link:active, .round:active, .support:active { transition-duration: var(--press-in); }
 
   /* ================= HERO (vídeo de fundo) ================= */
@@ -152,18 +152,6 @@
   }
   .nav-links { display: none; gap: 28px; font-size: 13.5px; color: rgba(244, 237, 226, .85); }
   .nav-links a { padding: 8px 0; transition: color 200ms ease; }
-  .nav-cta {
-    display: inline-flex; align-items: center;
-    min-height: 40px;
-    padding: 0 18px;
-    border-radius: 999px;
-    background: var(--terra-ui);
-    color: var(--cream);
-    font-size: 10.5px; font-weight: 600;
-    letter-spacing: .08em; text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .nav-cta:active { transform: scale(.96); background-color: var(--terra-deep); }
 
   /* Conteúdo no rodapé da hero: texto à esquerda, card de vidro à direita */
   .hero-content {
@@ -241,27 +229,75 @@
     color: rgba(244, 237, 226, .9);
   }
 
-  .btn {
-    display: inline-flex; align-items: center; gap: 14px;
-    min-height: 50px;
-    padding: 0 6px 0 22px;
+  /* ===== Botão "Venit" nas cores da página =====
+     Pílula creme com um círculo branco (seta terracota) à esquerda e o texto numa pílula terracota.
+     No hover o círculo se estica até cobrir o botão, a seta gira e o texto some.
+     A largura do botão nunca muda: nada no hover mexe em margem, padding ou largura do texto. */
+  .btn-venit {
+    --bv-fill: #FFFFFF;              /* círculo da seta */
+    --bv-arrow: var(--terra-ui);     /* seta */
+    --bv-bg: var(--cream);           /* fundo da pílula */
+    --bv-label: var(--terra-ui);     /* pílula do texto (terracota: texto creme passa 4.5:1) */
+    --bv-text: var(--cream);
+    --bv-h: 53px;
+    --bv-icon: 45px;
+    --bv-dur: .4s;
+    --bv-ease: cubic-bezier(.22, 1, .36, 1);
+    --bv-pl: 26px;                   /* respiro do texto à esquerda */
+    --bv-pr: 22px;                   /* e à direita */
+    position: relative;
+    display: inline-flex; align-items: stretch; gap: 4px;
+    height: var(--bv-h);
+    padding: 4px;
     border-radius: 999px;
-    background: var(--terra-ui);
-    color: var(--cream);
-    font-family: var(--display);
-    font-size: 15px; font-weight: 400;
+    background: var(--bv-bg);
+    box-shadow: 0 10px 30px -14px rgba(0, 0, 0, .5);
+    font-family: var(--sans);
+    isolation: isolate;
+    flex: none;
+  }
+  .btn-venit__icone {
+    position: absolute; z-index: 2;
+    top: 4px; left: 4px; bottom: 4px;
+    width: var(--bv-icon);
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 999px;
+    background: var(--bv-fill);
+    color: var(--bv-arrow);
+    transition: width var(--bv-dur) var(--bv-ease), background-color 200ms ease;
+  }
+  .btn-venit__icone svg { width: 11px; height: 11px; transition: transform var(--bv-dur) var(--bv-ease); }
+  .btn-venit__label {
+    display: flex; align-items: center;
+    margin-left: calc(var(--bv-icon) + 4px);
+    padding: 0 var(--bv-pr) 0 var(--bv-pl);
+    border-radius: 999px;
+    background: var(--bv-label);
+    color: var(--bv-text);
+    font-size: 14px; font-weight: 500; line-height: 1.2;
     white-space: nowrap;
-    box-shadow: 0 12px 26px -14px rgba(0, 0, 0, .6);
   }
-  .btn .sq {
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    background: var(--cream);
-    color: var(--terra-ui);
-    display: grid; place-items: center;
+  /* Só o texto se move (transform não altera o tamanho de nada) */
+  .btn-venit__label > span {
+    display: block;
+    transition: transform var(--bv-dur) var(--bv-ease), opacity var(--bv-dur) var(--bv-ease);
   }
-  .btn .sq svg { width: 16px; height: 16px; }
-  .btn:active { transform: scale(.97); background-color: var(--terra-deep); }
+  .btn-venit:active { transform: scale(.97); }
+  .btn-venit:active .btn-venit__icone { background-color: var(--cream); }
+  .btn-venit:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+
+  /* Menor (menu e card) */
+  .btn-venit--sm { --bv-h: 44px; --bv-icon: 36px; }
+  .btn-venit--sm { --bv-pl: 20px; --bv-pr: 18px; }
+  .btn-venit--sm .btn-venit__label { font-size: 13px; }
+  .btn-venit--sm .btn-venit__icone svg { width: 10px; height: 10px; }
+
+  /* Estado "aberto": hover (só com mouse, ver abaixo), foco pelo teclado e, no celular, a classe .is-rolling */
+  .btn-venit:focus-visible .btn-venit__icone, .btn-venit.is-rolling .btn-venit__icone { width: calc(100% - 8px); }
+  .btn-venit:focus-visible .btn-venit__icone svg, .btn-venit.is-rolling .btn-venit__icone svg { transform: rotate(135deg); }
+  .btn-venit:focus-visible .btn-venit__label > span, .btn-venit.is-rolling .btn-venit__label > span {
+    transform: translateX(-24px); opacity: 0;
+  }
 
   .hero-actions {
     display: flex; flex-wrap: wrap; align-items: center; gap: 16px 18px;
@@ -294,42 +330,14 @@
   .hero-card .hc-head { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; }
   .hero-card .hc-ribbon { width: 20px; height: 24px; }
   .hero-card p { margin-top: 10px; font-size: 13px; line-height: 1.5; color: rgba(244, 237, 226, .82); }
-  /* Botão do card: mesma família do botão principal, em tamanho menor */
-  .btn.btn-sm {
-    min-height: 42px;
-    margin-top: 16px;
-    padding: 0 5px 0 18px;
-    gap: 12px;
-    font-size: 13.5px;
-  }
-  .btn.btn-sm .sq { width: 32px; height: 32px; }
-  .btn.btn-sm .sq svg { width: 14px; height: 14px; }
+  .hero-card .btn-venit { margin-top: 16px; }
 
-  /* ===== Efeito dos botões (ref. Finto): o rótulo sai por cima e uma cópia entra por baixo =====
-     O JS duplica o texto em .roll (a cópia fica aria-hidden) e as setas em .roll-icon. */
+  /* ===== Setas dos cards (cursos, tiles, suporte): a seta sai pela diagonal e outra entra =====
+     O JS duplica a seta em .roll-icon (a cópia fica fora do leitor de tela). */
   :root { --roll-dur: 440ms; --roll-ease: cubic-bezier(.4, 0, .2, 1); }
-  .btn, .nav-cta { overflow: hidden; }
-  /* Brilho no topo + aro claro, como o botão da referência */
-  .btn, .nav-cta {
-    background-image: linear-gradient(180deg, rgba(255, 236, 220, .2), rgba(255, 236, 220, 0) 60%);
-  }
-  .btn { box-shadow: inset 0 1px 0 rgba(255, 228, 208, .35), 0 12px 26px -14px rgba(0, 0, 0, .6); }
-  .nav-cta { box-shadow: inset 0 1px 0 rgba(255, 228, 208, .35); }
-
-  .roll { display: inline-grid; --roll-y: 60px; }
-  .roll > span {
-    grid-area: 1 / 1;
-    transition: transform var(--roll-dur) var(--roll-ease), opacity var(--roll-dur) var(--roll-ease);
-  }
-  .roll-b { opacity: 0; transform: translateY(var(--roll-y)) scale(1.4); }
-
   .roll-icon { display: inline-grid; overflow: hidden; }
   .roll-icon > svg { grid-area: 1 / 1; transition: transform var(--roll-dur) var(--roll-ease); }
   .roll-icon > svg + svg { transform: translate(-130%, 130%); }
-
-  /* Foco pelo teclado e, no celular, a classe .is-rolling (toque ou primeira aparição) disparam o mesmo efeito do hover */
-  a:focus-visible .roll-a, a.is-rolling .roll-a { opacity: 0; transform: translateY(calc(var(--roll-y) * -1)) scale(.6); }
-  a:focus-visible .roll-b, a.is-rolling .roll-b { opacity: 1; transform: none; }
   a:focus-visible .roll-icon > svg:first-child, a.is-rolling .roll-icon > svg:first-child { transform: translate(130%, -130%); }
   a:focus-visible .roll-icon > svg + svg, a.is-rolling .roll-icon > svg + svg { transform: none; }
 
@@ -684,9 +692,9 @@
   /* Hover só com mouse, para não grudar no celular */
   @media (hover: hover) and (pointer: fine) {
     .nav-links a:hover { color: #fff; }
-    .nav-cta:hover, .btn:hover { background-color: var(--terra-deep); }
-    a:hover .roll-a { opacity: 0; transform: translateY(calc(var(--roll-y) * -1)) scale(.6); }
-    a:hover .roll-b { opacity: 1; transform: none; }
+    .btn-venit:hover .btn-venit__icone { width: calc(100% - 8px); }
+    .btn-venit:hover .btn-venit__icone svg { transform: rotate(135deg); }
+    .btn-venit:hover .btn-venit__label > span { transform: translateX(-24px); opacity: 0; }
     a:hover .roll-icon > svg:first-child { transform: translate(130%, -130%); }
     a:hover .roll-icon > svg + svg { transform: none; }
     .socials a:hover { background: var(--cream); color: var(--ink); border-color: var(--cream); transform: translateY(-2px); }
@@ -713,12 +721,12 @@
     .hero h1 .blind { display: none; }
     .hero h1 .txt { animation: none; }
     .js .in-view { transform: none; }
-    /* Movimento reduzido: sem troca de rótulo nem seta voando; fica só a mudança de cor */
-    .roll-b, .roll-icon > svg + svg { display: none; }
-    a:hover .roll-a, a:focus-visible .roll-a, a.is-rolling .roll-a,
+    /* Movimento reduzido: botão troca de estado sem animar; setas não voam */
+    .btn-venit * { transition: none !important; }
+    .roll-icon > svg + svg { display: none; }
     a:hover .roll-icon > svg:first-child, a:focus-visible .roll-icon > svg:first-child,
-    a.is-rolling .roll-icon > svg:first-child { opacity: 1; transform: none; }
-    .btn:active, .nav-cta:active, .socials a:active, .course:active, .tile-link:active,
+    a.is-rolling .roll-icon > svg:first-child { transform: none; }
+    .btn-venit:active, .socials a:active, .course:active, .tile-link:active,
     .round:active, .support:active, .tile-link:hover, .course:hover, .socials a:hover,
     .round:hover, .support:hover { transform: none; }
   }
@@ -774,7 +782,7 @@
   }
 
   @media (max-width: 360px) {
-    .nav-cta { padding: 0 12px; }
+    .nav .btn-venit { --bv-pl: 16px; --bv-pr: 14px; }
   }
 </style>
 </head>
@@ -783,6 +791,7 @@
 <!-- Ícones -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-ribbon" viewBox="0 0 71 83"><path fill-rule="evenodd" clip-rule="evenodd" fill="#EBA100" d="M33.0703 0.00158966C33.0703 0.00158966 41.9151 -0.286951 44.9668 6.91077C47.5019 12.8908 50.9362 22.9114 52.0264 26.1324C52.0288 26.1392 52.0319 26.1455 52.0342 26.152C52.0544 26.2119 52.0763 26.2746 52.0947 26.3297L52.1445 26.5016C52.1533 26.5337 52.1604 26.571 52.1709 26.6119C52.1871 26.6748 52.2044 26.7479 52.2236 26.8307C52.2744 27.0494 52.3357 27.3361 52.3916 27.6852C52.3947 27.7046 52.3983 27.724 52.4014 27.7438C52.4102 27.8008 52.4181 27.8594 52.4268 27.9196C52.4372 27.9925 52.4471 28.0677 52.457 28.1451C52.4668 28.2209 52.4773 28.2986 52.4863 28.3785C52.4977 28.4788 52.5066 28.5824 52.5166 28.6891C52.5218 28.744 52.5294 28.7995 52.5342 28.8561C52.5336 28.855 52.5328 28.8542 52.5322 28.8532C52.7779 31.7773 52.4405 36.9279 48.542 42.6129L70.0293 66.2028L53.6895 81.4606C53.6895 81.4606 43.9849 70.6829 34.8154 60.3551C34.7306 60.4626 34.6455 60.5698 34.5605 60.6774C34.1096 61.2485 33.6599 61.8227 33.208 62.3942C33.2071 62.3932 33.206 62.3923 33.2051 62.3912C25.1591 72.5667 17.1953 82.5172 17.1953 82.5172L0 68.2291L20.0869 43.4362C15.1556 37.0681 15.1207 31.1471 15.3945 28.6432C15.4083 28.5168 15.4227 28.3992 15.4375 28.2907C15.446 28.2281 15.4534 28.1684 15.4619 28.1119C15.4683 28.0694 15.4761 28.0289 15.4824 27.9899C15.4968 27.9016 15.5084 27.8222 15.5215 27.7526L15.5469 27.6315C15.5521 27.6058 15.5559 27.5819 15.5605 27.5602L15.6006 27.3864L15.6504 27.2047C15.6528 27.1962 15.6556 27.1874 15.6582 27.1783L16.5752 23.8893C17.855 19.3577 19.9196 12.2726 21.5938 7.58655C24.2173 0.244405 33.0233 0.00282939 33.0703 0.00158966ZM33.5117 15.2477C30.6069 15.3317 27.8653 16.0302 25.4033 17.2096L33.835 26.4664L41.7188 16.7379L41.7197 16.7369C39.1938 15.702 36.4164 15.1637 33.5117 15.2477Z"/></symbol>
+  <symbol id="i-venit" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10 L10 2"/><path d="M4 2 H10 V8"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></symbol>
   <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></symbol>
   <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></symbol>
@@ -811,7 +820,10 @@
       <a href="#livros">Livros</a>
       <a href="#contato">Contato</a>
     </div>
-    <a class="nav-cta" href="https://wa.me/553171890371" target="_blank" rel="noopener">Fale conosco</a>
+    <a class="btn-venit btn-venit--sm" href="https://wa.me/553171890371" target="_blank" rel="noopener">
+      <span class="btn-venit__icone" aria-hidden="true"><svg><use href="#i-venit"/></svg></span>
+      <span class="btn-venit__label"><span>Fale conosco</span></span>
+    </a>
   </nav>
 
   <div class="hero-content">
@@ -821,7 +833,10 @@
       <p class="lead reveal d3">Dra. Ana Beatriz Barbosa: cursos, podcast e livros para cuidar da sua saúde mental.</p>
 
       <div class="hero-actions reveal d4">
-        <a class="btn" href="#cursos">Ver cursos com 50% off <span class="sq"><svg><use href="#i-arrow"/></svg></span></a>
+        <a class="btn-venit" href="#cursos">
+          <span class="btn-venit__icone" aria-hidden="true"><svg><use href="#i-venit"/></svg></span>
+          <span class="btn-venit__label"><span>Ver cursos com 50% off</span></span>
+        </a>
         <div class="socials" aria-label="Redes sociais">
           <a href="https://www.instagram.com/anabeatriz11/" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
           <a href="https://www.tiktok.com/@draanabeatriz11" target="_blank" rel="noopener" aria-label="TikTok"><svg><use href="#i-tiktok"/></svg></a>
@@ -836,7 +851,10 @@
     <aside class="hero-card reveal d5">
       <div class="hc-head"><svg class="hc-ribbon" aria-hidden="true"><use href="#i-ribbon"/></svg>Setembro Amarelo</div>
       <p>Cursos TDAH 2.0, Mentes Aflitas, Mentes Depressivas e Borderline com 50% de desconto.</p>
-      <a class="btn btn-sm" href="#cursos">Ver cursos <span class="sq"><svg><use href="#i-arrow"/></svg></span></a>
+      <a class="btn-venit btn-venit--sm" href="#cursos">
+        <span class="btn-venit__icone" aria-hidden="true"><svg><use href="#i-venit"/></svg></span>
+        <span class="btn-venit__label"><span>Ver cursos</span></span>
+      </a>
     </aside>
   </div>
 </section>
@@ -951,19 +969,8 @@
 
   var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Efeito dos botões: duplica o rótulo (.roll) e a seta (.roll-icon); as cópias ficam fora do leitor de tela
-  document.querySelectorAll('.btn, .nav-cta').forEach(function (el) {
-    var node = Array.prototype.find.call(el.childNodes, function (n) { return n.nodeType === 3 && n.textContent.trim(); });
-    if (!node) return;
-    var label = node.textContent.trim();
-    var roll = document.createElement('span');
-    roll.className = 'roll';
-    roll.innerHTML = '<span class="roll-a"></span><span class="roll-b" aria-hidden="true"></span>';
-    roll.firstChild.textContent = label;
-    roll.lastChild.textContent = label;
-    el.replaceChild(roll, node);
-  });
-  document.querySelectorAll('.btn .sq, .course .arrow, .chip, .support .go').forEach(function (box) {
+  // Setas dos cards: duplica a seta em .roll-icon (a cópia fica fora do leitor de tela)
+  document.querySelectorAll('.course .arrow, .chip, .support .go').forEach(function (box) {
     var svg = box.querySelector(':scope > svg');
     if (!svg) return;
     var wrap = document.createElement('span');
@@ -986,7 +993,7 @@
   document.addEventListener('pointerdown', function (e) {
     if (e.pointerType === 'mouse') return;
     var a = e.target.closest && e.target.closest('a');
-    if (a && a.querySelector('.roll, .roll-icon')) playRoll(a, 900);
+    if (a && (a.classList.contains('btn-venit') || a.querySelector('.roll-icon'))) playRoll(a, 900);
   }, { passive: true });
 
   if ('IntersectionObserver' in window) {
@@ -998,7 +1005,7 @@
         setTimeout(function () { playRoll(a, 1100); }, 700);
       });
     }, { threshold: 1 });
-    document.querySelectorAll('.btn, .nav-cta').forEach(function (a) { introIO.observe(a); });
+    document.querySelectorAll('.btn-venit').forEach(function (a) { introIO.observe(a); });
   }
 
   // Rolagem suave com inércia (mouse/trackpad); no toque do celular fica o scroll nativo
