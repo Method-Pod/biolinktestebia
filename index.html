@@ -669,7 +669,10 @@
   .t-podcast .photo { background: #EBE5DB; }   /* cor medida no fundo do banner */
   .t-podcast .photo img { object-fit: contain; object-position: 50% 0; }
   .t-podcast .tile-body { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .t-podcast .round-row { margin-top: 0; flex: none; }
+  .t-podcast .round-row { margin-top: 0; flex: none; pointer-events: auto; }
+  /* A tarja fica por cima do link do bloco: o toque no texto "atravessa" até o link (YouTube),
+     e só os dois botões redondos capturam o clique */
+  .t-podcast .tile-body { pointer-events: none; }
   @media (max-width: 719px) {
     .t-podcast .tile-body { left: 6px; right: 6px; bottom: 6px; padding: 8px 8px 8px 10px; border-radius: 14px; gap: 6px; }
     .t-podcast .tile-body strong { font-size: 12.5px; }
@@ -965,7 +968,11 @@
   </div>
 
   <div class="tile t-podcast in-view" id="podcast">
-    <div class="photo"><img src="fotos/podcast.webp" alt="Banner do PodPeople, o podcast da Dra. Ana Beatriz" width="2000" height="2000" loading="lazy"></div>
+    <!-- O bloco inteiro leva ao YouTube; os botões da tarja ficam por cima com os próprios links -->
+    <a class="tile-link" href="https://www.youtube.com/@podpeopleanabeatriz" target="_blank" rel="noopener" aria-label="Podcast PodPeople no YouTube">
+      <div class="photo"><img src="fotos/podcast.webp" alt="" width="2000" height="2000" loading="lazy"></div>
+      <span class="chip"><svg><use href="#i-arrow"/></svg></span>
+    </a>
     <div class="tile-body">
       <strong>Podcast PodPeople</strong>
       <div class="round-row">
