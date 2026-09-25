@@ -653,11 +653,17 @@
   /* Banner do curso: aparece inteiro (sem cortar o título); a sobra do card usa o mesmo creme do banner */
   .t-escolas .photo { background: #EEEAE4; }   /* cor medida no fundo do banner */
   .t-escolas .photo img { object-fit: contain; object-position: 50% 0; }
+  .t-escolas .tile-body { display: flex; align-items: center; }
   /* No card pequeno do celular a etiqueta fica compacta para cobrir só a linha dos professores */
   @media (max-width: 719px) {
-    .t-escolas .tile-body { left: 6px; right: 6px; bottom: 6px; padding: 8px 10px 9px; border-radius: 14px; }
-    .t-escolas .tile-body strong { font-size: 12.5px; line-height: 1.2; }
-    .t-escolas .tile-body small { font-size: 11px; margin-top: 2px; }
+    /* Mesmo tamanho da tarja do PodPeople no celular (48px) */
+    .t-escolas .tile-body { left: 6px; right: 6px; bottom: 6px; padding: 8px 8px 8px 10px; border-radius: 14px; min-height: 48px; }
+    .t-escolas .tile-body strong { font-size: 12.5px; }
+  }
+  @media (min-width: 720px) {
+    /* Mesmo tamanho da tarja do PodPeople no computador (52px) */
+    .t-escolas .tile-body { padding: 8px 8px 8px 16px; min-height: 52px; }
+    .t-escolas .tile-body strong { font-size: 15px; }
   }
   /* Banner do PodPeople: inteiro, alinhado no topo; etiqueta baixa com título e botões lado a lado */
   .t-podcast .photo { background: #EBE5DB; }   /* cor medida no fundo do banner */
@@ -954,7 +960,7 @@
     <a class="tile-link" href="https://lp.draanabeatriz.com.br/saude-mental-nas-escolas/" target="_blank" rel="noopener">
       <div class="photo"><img src="fotos/escolas.webp" alt="Banner do curso Saúde Mental nas Escolas, com a Dra. Ana Beatriz Barbosa e o Prof. Felipe Maximo" width="2000" height="2000" loading="lazy"></div>
       <span class="chip"><svg><use href="#i-arrow"/></svg></span>
-      <div class="tile-body"><strong>Formação Saúde Mental nas Escolas</strong><small>Garanta sua vaga</small></div>
+      <div class="tile-body"><strong>Formação Saúde Mental nas Escolas</strong></div>
     </a>
   </div>
 
