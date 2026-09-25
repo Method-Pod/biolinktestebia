@@ -180,30 +180,36 @@
     text-wrap: balance;
     font-family: var(--display);
     font-weight: 600;
-    font-size: clamp(32px, 9.6vw, 64px);
-    line-height: 1.08;
+    font-size: clamp(30px, 10.2vw, 74px);   /* cabe numa linha até em celular de 320px */
+    line-height: .88;
     letter-spacing: -.06em;
+    padding: .12em 0 .22em;   /* compensa as margens negativas das linhas (ver .line) */
+    /* Coluna flex: as margens negativas das duas linhas somam em vez de se fundir */
+    display: flex; flex-direction: column; align-items: flex-start;
   }
   /* Efeito "persiana" (Blinds Text Reveal): um bloco terracota cobre cada linha,
      o texto aparece por baixo e o bloco sai pela direita. */
   .hero h1 .line {
+    /* A "janela" que recorta a persiana ganha folga em cima (acentos, t, f, d) e embaixo (vírgula);
+       as margens negativas devolvem essa folga, então as linhas continuam coladas */
+    --pt: .12em;
+    --pb: .22em;
     position: relative;
     display: block;
     width: fit-content;
     overflow: hidden;
     white-space: nowrap;
-    padding-bottom: .06em;
+    padding: var(--pt) .05em var(--pb) 0;
+    margin: calc(var(--pt) * -1) 0 calc(var(--pb) * -1);
   }
   .hero h1 .txt {
-    display: inline-block;
-    background: linear-gradient(90deg, var(--terra-light) 0%, #F2BFA2 34%, var(--cream) 64%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    display: block;   /* bloco: a altura da linha é exatamente o line-height, sem sobra */
+    color: var(--cream);                     /* "Entenda a mente," em branco */
     animation: blind-text 1s linear var(--d, 0s) both;
   }
+  .hero h1 .line:nth-child(2) .txt { color: var(--terra); }   /* só "transforme a vida" no laranja padrão (#B5532A) */
   .hero h1 .blind {
-    position: absolute; inset: 0;
+    position: absolute; inset: var(--pt) 0 var(--pb) 0;   /* o bloco cobre só a linha, não a folga */
     background: var(--terra);
     transform: translateX(-101%);
     animation: blind 1s linear var(--d, 0s) both;
@@ -230,7 +236,7 @@
   }
 
   /* ===== Botão "Venit" nas cores da página =====
-     Pílula creme com um círculo branco (seta terracota) à esquerda e o texto numa pílula terracota.
+     Pílula creme com o texto numa pílula terracota e um círculo branco (seta terracota) à direita.
      No hover o círculo se estica até cobrir o botão, a seta gira e o texto some.
      A largura do botão nunca muda: nada no hover mexe em margem, padding ou largura do texto. */
   .btn-venit {
@@ -258,7 +264,7 @@
   }
   .btn-venit__icone {
     position: absolute; z-index: 2;
-    top: 4px; left: 4px; bottom: 4px;
+    top: 4px; right: 4px; bottom: 4px;   /* seta à direita; no hover ela cresce para a esquerda */
     width: var(--bv-icon);
     display: flex; align-items: center; justify-content: center;
     border-radius: 999px;
@@ -269,7 +275,7 @@
   .btn-venit__icone svg { width: 11px; height: 11px; transition: transform var(--bv-dur) var(--bv-ease); }
   .btn-venit__label {
     display: flex; align-items: center;
-    margin-left: calc(var(--bv-icon) + 4px);
+    margin-right: calc(var(--bv-icon) + 4px);
     padding: 0 var(--bv-pr) 0 var(--bv-pl);
     border-radius: 999px;
     background: var(--bv-label);
@@ -296,7 +302,7 @@
   .btn-venit:focus-visible .btn-venit__icone, .btn-venit.is-rolling .btn-venit__icone { width: calc(100% - 8px); }
   .btn-venit:focus-visible .btn-venit__icone svg, .btn-venit.is-rolling .btn-venit__icone svg { transform: rotate(135deg); }
   .btn-venit:focus-visible .btn-venit__label > span, .btn-venit.is-rolling .btn-venit__label > span {
-    transform: translateX(-24px); opacity: 0;
+    transform: translateX(24px); opacity: 0;
   }
 
   .hero-actions {
@@ -313,7 +319,7 @@
     backdrop-filter: blur(8px);
     display: grid; place-items: center;
   }
-  .socials a:active { transform: scale(.94); background: var(--cream); color: var(--ink); border-color: var(--cream); }
+  .socials a:active { transform: scale(.94); background: var(--terra); color: var(--cream); border-color: var(--terra); }
   .socials svg { width: 17px; height: 17px; }
 
   /* Card de vidro (canto inferior direito, só em telas maiores) */
@@ -644,9 +650,33 @@
     color: rgba(26, 26, 26, .45);
   }
   .ph svg { width: 30px; height: 30px; }
-  .t-escolas .photo { background: radial-gradient(90% 80% at 50% 20%, #D8C4AE, #A88B72); }
-  .t-podcast .photo { background: radial-gradient(90% 80% at 50% 20%, #D27A52, #9A4523); }
-  .t-podcast .ph { color: rgba(244, 237, 226, .75); margin-bottom: 96px; }
+  /* Banner do curso: aparece inteiro (sem cortar o título); a sobra do card usa o mesmo creme do banner */
+  .t-escolas .photo { background: #EEEAE4; }   /* cor medida no fundo do banner */
+  .t-escolas .photo img { object-fit: contain; object-position: 50% 0; }
+  /* No card pequeno do celular a etiqueta fica compacta para cobrir só a linha dos professores */
+  @media (max-width: 719px) {
+    .t-escolas .tile-body { left: 6px; right: 6px; bottom: 6px; padding: 8px 10px 9px; border-radius: 14px; }
+    .t-escolas .tile-body strong { font-size: 12.5px; line-height: 1.2; }
+    .t-escolas .tile-body small { font-size: 11px; margin-top: 2px; }
+  }
+  /* Banner do PodPeople: inteiro, alinhado no topo; etiqueta baixa com título e botões lado a lado */
+  .t-podcast .photo { background: #EBE5DB; }   /* cor medida no fundo do banner */
+  .t-podcast .photo img { object-fit: contain; object-position: 50% 0; }
+  .t-podcast .tile-body { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .t-podcast .round-row { margin-top: 0; flex: none; }
+  @media (max-width: 719px) {
+    .t-podcast .tile-body { left: 6px; right: 6px; bottom: 6px; padding: 8px 8px 8px 10px; border-radius: 14px; gap: 6px; }
+    .t-podcast .tile-body strong { font-size: 12.5px; }
+    .t-podcast .round-row { gap: 6px; }
+    .t-podcast .round { width: 32px; height: 32px; }
+    .t-podcast .round svg { width: 15px; height: 15px; }
+  }
+  @media (min-width: 720px) {
+    .t-podcast .tile-body { padding: 8px 8px 8px 16px; }
+    .t-podcast .tile-body strong { font-size: 15px; }
+    .t-podcast .round { width: 36px; height: 36px; }
+    .t-podcast .round svg { width: 16px; height: 16px; }
+  }
   .t-livros .photo { background: radial-gradient(90% 70% at 50% 25%, #EFE3D3, #C9AB8E); }
 
   /* Suporte */
@@ -694,10 +724,10 @@
     .nav-links a:hover { color: #fff; }
     .btn-venit:hover .btn-venit__icone { width: calc(100% - 8px); }
     .btn-venit:hover .btn-venit__icone svg { transform: rotate(135deg); }
-    .btn-venit:hover .btn-venit__label > span { transform: translateX(-24px); opacity: 0; }
+    .btn-venit:hover .btn-venit__label > span { transform: translateX(24px); opacity: 0; }
     a:hover .roll-icon > svg:first-child { transform: translate(130%, -130%); }
     a:hover .roll-icon > svg + svg { transform: none; }
-    .socials a:hover { background: var(--cream); color: var(--ink); border-color: var(--cream); transform: translateY(-2px); }
+    .socials a:hover { background: var(--terra); color: var(--cream); border-color: var(--terra); transform: translateY(-2px); }
     .course:hover { background: var(--ink-3); transform: translateX(3px); }
     .tile-link:hover { transform: scale(1.02); }
     .tile:has(.tile-link:hover) .chip { background: var(--terra-ui); color: var(--cream); }
@@ -821,8 +851,8 @@
       <a href="#contato">Contato</a>
     </div>
     <a class="btn-venit btn-venit--sm" href="https://wa.me/553171890371" target="_blank" rel="noopener">
-      <span class="btn-venit__icone" aria-hidden="true"><svg><use href="#i-venit"/></svg></span>
       <span class="btn-venit__label"><span>Fale conosco</span></span>
+      <span class="btn-venit__icone" aria-hidden="true"><svg><use href="#i-venit"/></svg></span>
     </a>
   </nav>
 
@@ -834,8 +864,8 @@
 
       <div class="hero-actions reveal d4">
         <a class="btn-venit" href="#cursos">
-          <span class="btn-venit__icone" aria-hidden="true"><svg><use href="#i-venit"/></svg></span>
           <span class="btn-venit__label"><span>Ver cursos com 50% off</span></span>
+          <span class="btn-venit__icone" aria-hidden="true"><svg><use href="#i-venit"/></svg></span>
         </a>
         <div class="socials" aria-label="Redes sociais">
           <a href="https://www.instagram.com/anabeatriz11/" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
@@ -852,8 +882,8 @@
       <div class="hc-head"><svg class="hc-ribbon" aria-hidden="true"><use href="#i-ribbon"/></svg>Setembro Amarelo</div>
       <p>Cursos TDAH 2.0, Mentes Aflitas, Mentes Depressivas e Borderline com 50% de desconto.</p>
       <a class="btn-venit btn-venit--sm" href="#cursos">
-        <span class="btn-venit__icone" aria-hidden="true"><svg><use href="#i-venit"/></svg></span>
         <span class="btn-venit__label"><span>Ver cursos</span></span>
+        <span class="btn-venit__icone" aria-hidden="true"><svg><use href="#i-venit"/></svg></span>
       </a>
     </aside>
   </div>
@@ -922,14 +952,14 @@
 
   <div class="tile t-escolas in-view">
     <a class="tile-link" href="https://lp.draanabeatriz.com.br/saude-mental-nas-escolas/" target="_blank" rel="noopener">
-      <div class="photo"><div class="ph"><svg><use href="#i-image"/></svg>fotos/escolas.jpg</div><img style="object-position: 30% 15%" src="https://ugc.production.linktr.ee/1055fadf-5534-429c-987e-164a10efa90d_maxresdefault.jpeg" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="photo"><img src="fotos/escolas.webp" alt="Banner do curso Saúde Mental nas Escolas, com a Dra. Ana Beatriz Barbosa e o Prof. Felipe Maximo" width="2000" height="2000" loading="lazy"></div>
       <span class="chip"><svg><use href="#i-arrow"/></svg></span>
-      <div class="tile-body"><strong>Saúde Mental nas Escolas</strong><small>Garanta sua vaga</small></div>
+      <div class="tile-body"><strong>Formação Saúde Mental nas Escolas</strong><small>Garanta sua vaga</small></div>
     </a>
   </div>
 
   <div class="tile t-podcast in-view" id="podcast">
-    <div class="photo"><div class="ph"><svg><use href="#i-image"/></svg>fotos/podcast.jpg</div><img src="fotos/podcast.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+    <div class="photo"><img src="fotos/podcast.webp" alt="Banner do PodPeople, o podcast da Dra. Ana Beatriz" width="2000" height="2000" loading="lazy"></div>
     <div class="tile-body">
       <strong>Podcast PodPeople</strong>
       <div class="round-row">
